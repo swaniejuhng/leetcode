@@ -2,7 +2,8 @@
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        # my solution
+        # my solution - quite fast but not space-efficient
+        """
         p_dict = {}
         for i, p in enumerate("(){}[]"):
             p_dict[p] = i # "(": 0, ")": 1, "{": 2
@@ -27,3 +28,19 @@ class Solution:
         if stack:
             return False
         return True
+        """
+
+        # better solution
+        stack = []
+        match = {')': '(', ']': '[', '}': '{'}
+
+        for c in s:
+            if c in match:
+                if not stack:
+                    return False
+                elif stack.pop() != match[c]:
+                    return False
+            else:
+                stack.append(c)
+
+        return not stack
